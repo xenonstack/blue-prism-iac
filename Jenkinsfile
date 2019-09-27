@@ -18,7 +18,7 @@ pipeline {
     checkout([$class: 'GitSCM', branches: [[name: '${BRANCH_NAME}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-release.git']]])
     }
     stage('Deploy') {
-    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: %CREDENTIAL_ID%,
+    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: ${CREDENTIAL_ID},
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
     powershell '''
     ./run.ps1 %BPRelease_Name% %USERNAME% %PASSWORD%
