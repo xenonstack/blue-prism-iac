@@ -27,7 +27,8 @@ stages {
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: CREDENTIAL_ID,
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
     powershell '''
-    & "C:\Jenkins\workspace\Emaar-Poc\run.ps1" $env:BPRelease_Name $env:USERNAME $env:PASSWORD
+    git clone https://github.com/xenonstack/blue-prism-iac.git
+    C:\Jenkins\workspace\Emaar-Poc\blue-prism-iac\run.ps1 $env:BPRelease_Name $env:USERNAME $env:PASSWORD
     '''
 }
 }
