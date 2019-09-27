@@ -27,7 +27,7 @@ stages {
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: CREDENTIAL_ID,
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
     powershell '''
-    ./run.ps1 $env:BPRelease_Name $env:USERNAME $env:PASSWORD
+    .\run.ps1 $env:BPRelease_Name $env:USERNAME $env:PASSWORD
     '''
 }
 }
