@@ -27,7 +27,7 @@ stages {
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: CREDENTIAL_ID,
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
     powershell '''
-    write-host "$env:USERNAME"
+    write-host "$env:BPRelease_Name"
     write-host $env:USERNAME
     '''
 }
