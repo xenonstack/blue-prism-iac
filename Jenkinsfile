@@ -27,8 +27,8 @@ stages {
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: windows-agent-prod-creds,
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
     powershell '''
-    echo ${BPRelease_Name}
-    echo ${USERNAME}
+    echo %BPRelease_Name%
+    echo %USERNAME%
     '''
 }
 }
