@@ -27,8 +27,7 @@ stages {
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: CREDENTIAL_ID,
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
     powershell '''
-    println(env.USERNAME)
-    %USERNAME%
+    write-host %USERNAME%
     '''
 }
 }
