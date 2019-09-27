@@ -24,7 +24,7 @@ stages {
 
     stage('Deploy') {
     steps {
-    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: CREDENTIAL_ID,
+    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: ${CREDENTIAL_ID},
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
     powershell '''
     echo ${BPRelease_Name}
