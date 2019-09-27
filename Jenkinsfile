@@ -24,11 +24,11 @@ stages {
 
     stage('Deploy') {
     steps {
-    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'windows-agent-prod-creds',
+    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: CREDENTIAL_ID,
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
     powershell '''
-    echo ${BPRelease_Name}
-    echo ${USERNAME}
+    println(env.USERNAME)
+    %USERNAME%
     '''
 }
 }
