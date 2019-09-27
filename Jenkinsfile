@@ -14,6 +14,7 @@ if (BRANCH_NAME == "master") {
 
 pipeline {
     agent { label agentLabel }
+stages {
     stage 'Checkout' {
     checkout([$class: 'GitSCM', branches: [[name: '${BRANCH_NAME}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-release.git']]])
     }
@@ -23,5 +24,6 @@ pipeline {
     powershell '''
     ./run.ps1 %BPRelease_Name% %USERNAME% %PASSWORD%
     '''
+}
 }
 }
