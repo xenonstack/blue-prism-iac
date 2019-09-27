@@ -28,7 +28,7 @@ stages {
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
     powershell '''
     git clone https://github.com/xenonstack/blue-prism-iac.git
-    C:\Jenkins\workspace\Emaar-Poc\blue-prism-iac\run.ps1 $env:BPRelease_Name $env:USERNAME $env:PASSWORD
+    C:/Jenkins/workspace/Emaar-Poc/blue-prism-iac/run.ps1 $env:BPRelease_Name $env:USERNAME $env:PASSWORD
     '''
 }
 }
