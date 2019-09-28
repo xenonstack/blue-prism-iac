@@ -1,4 +1,3 @@
-def environment
 def agentLabel
 def CREDENTIAL_ID
 def BRANCH_NAME
