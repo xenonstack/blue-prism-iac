@@ -3,7 +3,20 @@ def CREDENTIAL_ID
 def BRANCH_NAME
 
 
-
+if (environment == "Production") {
+    BRANCH_NAME = "master"
+    agentLabel = "windows-agent-prod"
+    CREDENTIAL_ID = "windows-agent-prod-creds"
+} else if (environment == "UAT") {
+    BRANCH_NAME = "uat"
+    agentLabel = "windows-agent-stg"
+    CREDENTIAL_ID = "windows-agent-stg-creds"
+}
+else {
+    BRANCH_NAME = "dev"
+    agentLabel = "windows-agent-stg"
+    CREDENTIAL_ID = "windows-agent-stg-creds"
+}
 
 pipeline {
     agent { label agentLabel }
@@ -16,20 +29,7 @@ stages {
  //       echo BRANCH_NAME
   //      echo environment
         
-        if (environment == "Production") {
-            BRANCH_NAME = "master"
-            agentLabel = "windows-agent-prod"
-            CREDENTIAL_ID = "windows-agent-prod-creds"
-        } else if (environment == "UAT") {
-            BRANCH_NAME = "uat"
-            agentLabel = "windows-agent-stg"
-            CREDENTIAL_ID = "windows-agent-stg-creds"
-        }
-        else {
-            BRANCH_NAME = "dev"
-            agentLabel = "windows-agent-stg"
-            CREDENTIAL_ID = "windows-agent-stg-creds"
-        }
+
         
         sh 'echo ${BRANCH_NAME}'
         
