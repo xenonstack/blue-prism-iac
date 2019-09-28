@@ -1,5 +1,6 @@
 def agentLabel
 def CREDENTIAL_ID
+def BRANCH_NAME = "master"
 if (BRANCH_NAME == "master") {
     agentLabel = "windows-agent-prod"
     CREDENTIAL_ID = "windows-agent-prod-creds"
