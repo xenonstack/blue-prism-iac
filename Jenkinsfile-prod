@@ -1,20 +1,9 @@
 def agentLabel
 def CREDENTIAL_ID
-if (environment == "Pre-Production") {
-    agentLabel = "windows-agent-prod"
-    CREDENTIAL_ID = "windows-agent-prod-creds"
-} else {
-    agentLabel = "windows-agent-stg"
-    CREDENTIAL_ID = "windows-agent-stg-creds"
-}
+def agentLabel
+agentLabel = "windows-agent-prod"
+CREDENTIAL_ID = "windows-agent-prod-creds"
 
-def getBranchFromEnv(Env) {
-  if (Env == 'Pre-Production') {
-    return 'preprod'
-  } else {
-    return 'uat'
- }
-}
 
 
 pipeline {
@@ -22,7 +11,7 @@ pipeline {
 
 
     environment {
-        BRANCH_NAME = getBranchFromEnv(environment)
+        BRANCH_NAME = 'master'
     }
 
 stages {
@@ -38,25 +27,17 @@ stages {
         }
     }
 
-    stage('Download Release Artifact'){
+    stage('Download Production Release Artifact'){
         steps{
             script {
 
-                if ( environment == 'Pre-Production') {
-                    checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'git@github.com:xenonstack/blue-prism-release.git']]])
-                }
-                else if ( environment == 'UAT') {
-                    checkout([$class: 'GitSCM', branches: [[name: 'uat']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'git@github.com:xenonstack/blue-prism-release.git']]])
-                }
-                else{
-                    checkout([$class: 'GitSCM', branches: [[name: 'develop']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'git@github.com:xenonstack/blue-prism-release.git']]])
-                }
+              checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'git@github.com:xenonstack/blue-prism-release.git']]])
 
             }
         }
     }
 
-    stage('Import Release to BluePrism') {
+    stage('Import Release to Production BluePrism') {
     steps {
           withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: CREDENTIAL_ID,
                           usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
@@ -66,21 +47,6 @@ stages {
           }
         }
     }
-    stage('Tagging Artifact') {
-    steps {
-
-          powershell '''
-          C:/Jenkins/workspace/Emaar-Poc/iac/tag.ps1 $env:BPRelease_Name $env:BUILD_NUMBER
-          '''
-        }
-    }
-    stage('Push Artifact') {
-    steps {
-
-          powershell '''
-          C:/Jenkins/workspace/Emaar-Poc/iac/push.ps1 $env:BPRelease_Name $env:BUILD_NUMBER $env:BRANCH_NAME
-          '''
-        }
-    }
-}
+   
+  }
 }
