@@ -30,6 +30,7 @@ stages {
    stage ('Checkout') {
     steps {
         echo "Building in ${env.BRANCH_NAME}"
+        echo "Environment in ${environment}"
         checkout([$class: 'GitSCM', branches: [[name: '${env.BRANCH_NAME}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-release.git']]])
         }
     }
