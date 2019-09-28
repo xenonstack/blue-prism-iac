@@ -33,7 +33,7 @@ stages {
         
         sh 'echo ${BRANCH_NAME}'
         
-        checkout([$class: 'GitSCM', branches: [[name: ${BRANCH_NAME}]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-release.git']]])
+        checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-release.git']]])
     }
     }
 
