@@ -69,7 +69,7 @@ stages {
     stage('Tagging Artifact') {
     steps {
           powershell 'cp $env:BPRelease_Name.bprelease $env:BPRelease_Name-$env:BUILD_NUMBER.bprelease'
-          }
+
         }
     }
 }
