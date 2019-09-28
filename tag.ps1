@@ -3,8 +3,8 @@ param(
 	[string[]]$releasename,
 	[string[]]$tag
 )
-
-
+Write-Host $releasename
+Write-Host $tag
 
 
 $WantFile = ".\$releasename"
