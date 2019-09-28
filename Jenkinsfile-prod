@@ -1,6 +1,5 @@
 def agentLabel
 def CREDENTIAL_ID
-def agentLabel
 agentLabel = "windows-agent-prod"
 CREDENTIAL_ID = "windows-agent-prod-creds"
 
