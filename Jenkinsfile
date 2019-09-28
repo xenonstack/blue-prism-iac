@@ -1,7 +1,7 @@
 def environment
 if (environment == "Production") {
     BRANCH_NAME = "master"
-} elseif (environment == "UAT") {
+} else if (environment == "UAT") {
     BRANCH_NAME = "uat"
 }
 else {
