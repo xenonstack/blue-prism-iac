@@ -1,6 +1,6 @@
 def agentLabel
 def CREDENTIAL_ID
-if (environment == "Production") {
+if (environment == "Pre-Production") {
     agentLabel = "windows-agent-prod"
     CREDENTIAL_ID = "windows-agent-prod-creds"
 } else {
@@ -9,8 +9,8 @@ if (environment == "Production") {
 }
 
 def getBranchFromEnv(Env) {
-  if (Env == 'Production') {
-    return 'master'
+  if (Env == 'Pre-Production') {
+    return 'preprod'
   } else {
     return 'uat'
  }
@@ -19,30 +19,30 @@ def getBranchFromEnv(Env) {
 
 pipeline {
     agent { label agentLabel }
-    
-    
+
+
     environment {
         BRANCH_NAME = getBranchFromEnv(environment)
     }
-    
+
 stages {
- 
+
    stage ('Download Infra as a Code') {
     steps {
         echo "Building in ${env.BRANCH_NAME}"
-        
+
             dir('iac') {
               checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-iac.git']]])
-            
+
             }
         }
     }
-    
+
     stage('Download Release Artifact'){
         steps{
             script {
-        
-                if ( environment == 'Production') {
+
+                if ( environment == 'Pre-Production') {
                     checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'git@github.com:xenonstack/blue-prism-release.git']]])
                 }
                 else if ( environment == 'UAT') {
@@ -78,7 +78,7 @@ stages {
     steps {
 
           powershell '''
-          C:/Jenkins/workspace/Emaar-Poc/iac/push.ps1 $env:BPRelease_Name $env:BUILD_NUMBER $env:BRANCH_NAME 
+          C:/Jenkins/workspace/Emaar-Poc/iac/push.ps1 $env:BPRelease_Name $env:BUILD_NUMBER $env:BRANCH_NAME
           '''
         }
     }
