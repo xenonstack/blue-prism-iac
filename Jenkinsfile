@@ -9,7 +9,7 @@ if (environment == "Production") {
 }
 
 def getBranchFromEnv(Env) {
-  if (Env == 'production') {
+  if (Env == 'Production') {
     return 'master'
   } else {
     return 'uat'
