@@ -22,7 +22,7 @@ pipeline {
     
     
     environment {
-        BRANCH_NAME = getBranchFromEnv(env.environment)
+        BRANCH_NAME = getBranchFromEnv(${environment})
     }
     
 stages {
