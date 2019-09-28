@@ -13,7 +13,7 @@ $FileExists = Test-Path $WantFile
 
 
 If ($FileExists -eq $True) {
-& "Copy-Item '.\$releasename' '.\$tagged_release'"
+& "Copy-Item $releasename $tagged_release"
 }
 Else {
 Write-Host "Could Not Tag Release Artifact."
