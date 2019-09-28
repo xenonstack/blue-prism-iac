@@ -2,20 +2,7 @@ def agentLabel
 def CREDENTIAL_ID
 def BRANCH_NAME
 
-if (environment == "Production") {
-    BRANCH_NAME = "master"
-    agentLabel = "windows-agent-prod"
-    CREDENTIAL_ID = "windows-agent-prod-creds"
-} else if (environment == "UAT") {
-    BRANCH_NAME = "uat"
-    agentLabel = "windows-agent-stg"
-    CREDENTIAL_ID = "windows-agent-stg-creds"
-}
-else {
-    BRANCH_NAME = "dev"
-    agentLabel = "windows-agent-stg"
-    CREDENTIAL_ID = "windows-agent-stg-creds"
-}
+
 
 
 pipeline {
@@ -28,7 +15,25 @@ stages {
  //       echo CREDENTIAL_ID
  //       echo BRANCH_NAME
   //      echo environment
-        checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-release.git']]])
+        
+        if (environment == "Production") {
+            BRANCH_NAME = "master"
+            agentLabel = "windows-agent-prod"
+            CREDENTIAL_ID = "windows-agent-prod-creds"
+        } else if (environment == "UAT") {
+            BRANCH_NAME = "uat"
+            agentLabel = "windows-agent-stg"
+            CREDENTIAL_ID = "windows-agent-stg-creds"
+        }
+        else {
+            BRANCH_NAME = "dev"
+            agentLabel = "windows-agent-stg"
+            CREDENTIAL_ID = "windows-agent-stg-creds"
+        }
+        
+        sh 'echo ${BRANCH_NAME}'
+        
+        checkout([$class: 'GitSCM', branches: [[name: ${BRANCH_NAME}]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-release.git']]])
     }
     }
 
