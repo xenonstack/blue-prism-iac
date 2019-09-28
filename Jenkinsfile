@@ -61,15 +61,16 @@ stages {
           withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: CREDENTIAL_ID,
                           usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
           powershell '''
-          C:/Jenkins/workspace/Emaar-Poc/iac/run.ps1 $env:BPRelease_Name $env:USERNAME $env:PASSWORD
+          C:/Jenkins/workspace/Emaar-Poc/iac/import.ps1 $env:BPRelease_Name $env:USERNAME $env:PASSWORD
           '''
           }
         }
     }
     stage('Tagging Artifact') {
     steps {
-          powershell 'cp $env:BPRelease_Name.bprelease $env:BPRelease_Name-$env:BUILD_NUMBER.bprelease'
-
+            powershell '''
+          C:/Jenkins/workspace/Emaar-Poc/iac/tag.ps1 $env:BPRelease_Name $env:BUILD_NUMBER
+          '''
         }
     }
 }
