@@ -74,5 +74,13 @@ stages {
           '''
         }
     }
+    stage('Push Artifact') {
+    steps {
+
+          powershell '''
+          C:/Jenkins/workspace/Emaar-Poc/iac/push.ps1 $env:BPRelease_Name $env:BUILD_NUMBER
+          '''
+        }
+    }
 }
 }
