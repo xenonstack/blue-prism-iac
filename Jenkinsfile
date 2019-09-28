@@ -1,16 +1,13 @@
 def agentLabel
-if (BRANCH_NAME == "master") {
-    agentLabel = "windows-agent-prod"
-} else {
-    agentLabel = "windows-agent-stg"
-}
-
 def CREDENTIAL_ID
 if (BRANCH_NAME == "master") {
+    agentLabel = "windows-agent-prod"
     CREDENTIAL_ID = "windows-agent-prod-creds"
 } else {
+    agentLabel = "windows-agent-stg"
     CREDENTIAL_ID = "windows-agent-stg-creds"
 }
+
 
 pipeline {
     agent { label agentLabel }
