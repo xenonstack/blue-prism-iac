@@ -1,6 +1,7 @@
 def environment
 def agentLabel
 def CREDENTIAL_ID
+def BRANCH_NAME
 
 if (environment == "Production") {
     BRANCH_NAME = "master"
@@ -13,6 +14,8 @@ if (environment == "Production") {
 }
 else {
     BRANCH_NAME = "dev"
+    agentLabel = "windows-agent-stg"
+    CREDENTIAL_ID = "windows-agent-stg-creds"
 }
 
 
