@@ -30,11 +30,11 @@ stages {
    stage ('Checkout') {
     steps {
         echo "Building in ${env.BRANCH_NAME}"
-        echo "Environment in "
-        if (${environment} == 'Production') {
+        
+        if ( environment == 'Production') {
             checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-release.git']]])
         }
-        else if (${environment} == 'UAT') {
+        else if ( environment == 'UAT') {
             checkout([$class: 'GitSCM', branches: [[name: 'uat']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-release.git']]])
         }
         else{
