@@ -68,9 +68,7 @@ stages {
     }
     stage('Tagging Artifact') {
     steps {
-            echo $env:BPRelease_Name
-            echo $env:BUILD_NUMBER
-        
+
           powershell '''
           C:/Jenkins/workspace/Emaar-Poc/iac/tag.ps1 $env:BPRelease_Name $env:BUILD_NUMBER
           '''
