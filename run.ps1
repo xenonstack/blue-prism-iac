@@ -12,7 +12,7 @@ $WantFile = "C:\Program Files\Blue Prism Limited\Blue Prism Automate\AutomateC.e
 $FileExists = Test-Path $WantFile
 
 If ($FileExists -eq $True) {
-& "C:\Program Files\Blue Prism Limited\Blue Prism Automate\AutomateC.exe" /importrelease $releasename /user $username $password
+& "C:\Program Files\Blue Prism Limited\Blue Prism Automate\AutomateC.exe" /importrelease $releasename.bprelease /user $username $password
 }
 
 Else {
