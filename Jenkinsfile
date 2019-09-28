@@ -56,7 +56,7 @@ stages {
         }
     }
 
-    stage('Import Release to ${env.environment} BluePrism') {
+    stage('Import Release to BluePrism') {
     steps {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: CREDENTIAL_ID,
                         usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
@@ -65,6 +65,12 @@ stages {
         '''
         }
     }
+    stage('Tagging Aritfact') {
+    steps {
+        powershell 'cp $env:BPRelease_Name.bprelease $env:BPRelease_Name-$env:BUILD_NUMBER.bprelease'
+        }
+    }
+        
 }
 }
 }
