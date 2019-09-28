@@ -31,7 +31,10 @@ stages {
     steps {
         echo "Building in ${env.BRANCH_NAME}"
         
-        checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-iac.git']]])
+        dir('iac') {
+            checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-iac.git']]])
+            
+        }
         
         script {
         
