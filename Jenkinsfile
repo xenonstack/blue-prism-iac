@@ -1,3 +1,14 @@
+def environment
+if (environment == "Production") {
+    BRANCH_NAME = "master"
+} elseif (environment == "UAT") {
+    BRANCH_NAME = "uat"
+}
+else {
+    BRANCH_NAME = "dev"
+}
+
+
 def agentLabel
 if (BRANCH_NAME == "master") {
     agentLabel = "windows-agent-prod"
