@@ -1,7 +1,6 @@
 def agentLabel
 def CREDENTIAL_ID
-def BRANCH_NAME = "master"
-if (BRANCH_NAME == "master") {
+if (environment == "Production") {
     agentLabel = "windows-agent-prod"
     CREDENTIAL_ID = "windows-agent-prod-creds"
 } else {
@@ -12,6 +11,16 @@ if (BRANCH_NAME == "master") {
 
 pipeline {
     agent { label agentLabel }
+    
+    
+    environment {
+        if (environment == "Production") {
+            BRANCH_NAME = "master"
+        }
+        else {
+            BRANCH_NAME = "uat"
+            }
+    }
 stages {
  
    stage ('Checkout') {
