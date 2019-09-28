@@ -56,7 +56,7 @@ stages {
         }
     }
 
-    stage('Import Release to ${environment} BluePrism') {
+    stage('Import Release to ${env.environment} BluePrism') {
     steps {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: CREDENTIAL_ID,
                         usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
