@@ -27,33 +27,36 @@ pipeline {
     
 stages {
  
-   stage ('Checkout') {
+   stage ('Download Infra as a Code') {
     steps {
         echo "Building in ${env.BRANCH_NAME}"
         
-        dir('iac') {
-            checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-iac.git']]])
+            dir('iac') {
+              checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-iac.git']]])
             
+            }
         }
+    }
+    
+    stage('Download Release Artifact'){
+        steps{
+            script {
         
-        script {
-        
-            if ( environment == 'Production') {
-                checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-release.git']]])
+                if ( environment == 'Production') {
+                    checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'git@github.com:xenonstack/blue-prism-release.git']]])
+                }
+                else if ( environment == 'UAT') {
+                    checkout([$class: 'GitSCM', branches: [[name: 'uat']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'git@github.com:xenonstack/blue-prism-release.git']]])
+                }
+                else{
+                    checkout([$class: 'GitSCM', branches: [[name: 'develop']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'git@github.com:xenonstack/blue-prism-release.git']]])
+                }
+
             }
-            else if ( environment == 'UAT') {
-                checkout([$class: 'GitSCM', branches: [[name: 'uat']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-release.git']]])
-            }
-            else{
-                checkout([$class: 'GitSCM', branches: [[name: 'develop']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-release.git']]])
-            }
-            
-        }
-        
         }
     }
 
-    stage('Deploy') {
+    stage('Import Release') {
     steps {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: CREDENTIAL_ID,
                         usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
