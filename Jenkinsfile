@@ -8,19 +8,23 @@ if (environment == "Production") {
     CREDENTIAL_ID = "windows-agent-stg-creds"
 }
 
+def getBranchFromEnv(Env) {
+  if (Env == 'production') {
+    return 'master'
+  } else {
+    return 'uat'
+ }
+}
+
 
 pipeline {
     agent { label agentLabel }
     
     
     environment {
-        if (environment == "Production") {
-            BRANCH_NAME = "master"
-        }
-        else {
-            BRANCH_NAME = "uat"
-            }
+        BRANCH_NAME = getBranchFromEnv(env.environment)
     }
+    
 stages {
  
    stage ('Checkout') {
