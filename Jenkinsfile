@@ -31,6 +31,8 @@ stages {
     steps {
         echo "Building in ${env.BRANCH_NAME}"
         
+        checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-iac.git']]])
+        
         script {
         
             if ( environment == 'Production') {
@@ -53,7 +55,6 @@ stages {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: CREDENTIAL_ID,
                         usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
         powershell '''
-        & "C:/Program Files/Git/bin/git.exe" clone https://github.com/xenonstack/blue-prism-iac.git
         C:/Jenkins/workspace/Emaar-Poc/blue-prism-iac/run.ps1 $env:BPRelease_Name $env:USERNAME $env:PASSWORD
         '''
         }
