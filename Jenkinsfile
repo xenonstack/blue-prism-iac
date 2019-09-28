@@ -22,13 +22,14 @@ pipeline {
     
     
     environment {
-        BRANCH_NAME = getBranchFromEnv(env.environment)
+        BRANCH_NAME = getBranchFromEnv(${env.environment})
     }
     
 stages {
  
    stage ('Checkout') {
     steps {
+        echo "Environment in ${env.environment}"
         echo "Building in ${env.BRANCH_NAME}"
         checkout([$class: 'GitSCM', branches: [[name: '${env.BRANCH_NAME}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/xenonstack/blue-prism-release.git']]])
         }
