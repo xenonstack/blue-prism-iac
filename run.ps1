@@ -2,7 +2,7 @@ param(
 	[parameter()]
 	[string[]]$releasename,
 	[string[]]$username,
-        [string[]]$password
+    	[string[]]$password
 )
 
 
@@ -11,8 +11,11 @@ param(
 $WantFile = "C:\Program Files\Blue Prism Limited\Blue Prism Automate\AutomateC.exe"
 $FileExists = Test-Path $WantFile
 
+$releasename = "${releasename}.bprelease"
+
+
 If ($FileExists -eq $True) {
-& "C:\Program Files\Blue Prism Limited\Blue Prism Automate\AutomateC.exe" /importrelease $releasename.bprelease /user $username $password
+& "C:\Program Files\Blue Prism Limited\Blue Prism Automate\AutomateC.exe" /importrelease $releasename /user $username $password
 }
 
 Else {
