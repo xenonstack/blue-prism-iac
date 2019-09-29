@@ -11,6 +11,9 @@ param(
 $WantFile = "C:\Program Files\Blue Prism Limited\Blue Prism Automate\AutomateC.exe"
 $FileExists = Test-Path $WantFile
 
+Write-Host $releasename
+Write-Host $username
+Write-Host $password
 
 
 
