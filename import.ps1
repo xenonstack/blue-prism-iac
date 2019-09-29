@@ -13,12 +13,12 @@ $WantFile = "C:\Program Files\Blue Prism Limited\Blue Prism Automate\AutomateC.e
 $FileExists = Test-Path $WantFile
 
 
-$releasename = "${releasename}.bprelease"
+
 
 if($tag) {            
-    Write-Host "No tag to be imported."           
+    $releasename = "${releasename}-${tag}.bprelease"
 } else {            
-    $releasename = "${releasename}-${tag}.bprelease"        
+    $releasename = "${releasename}.bprelease"
 }
 
 Write-Host $releasename
