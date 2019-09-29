@@ -1,7 +1,7 @@
 def agentLabel
 def CREDENTIAL_ID
 if (environment == "Pre-Production") {
-    agentLabel = "windows-agent-stg"
+    agentLabel = "windows-agent-uat"
     CREDENTIAL_ID = "windows-agent-stg-creds"
 } else {
     agentLabel = "windows-agent-stg"
