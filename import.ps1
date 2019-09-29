@@ -1,9 +1,9 @@
 param(
-	[parameter()]
+	[Parameter(Position=0,mandatory=$true)]
 	[string[]]$releasename,
-	[string[]]$username,
-    	[string[]]$password,
-	[string[]]$tag=''
+	[Parameter(Position=1,mandatory=$true)][string[]]$username,
+    	[Parameter(Position=2,mandatory=$true)][string[]]$password,
+	[Parameter(Position=3,mandatory=$false)][string[]]$tag=
 )
 
 
