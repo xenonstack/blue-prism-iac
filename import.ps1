@@ -3,7 +3,7 @@ param(
 	[string[]]$releasename,
 	[string[]]$username,
     	[string[]]$password,
-	[string[]]$tag='',
+	[string[]]$tag=''
 )
 
 
