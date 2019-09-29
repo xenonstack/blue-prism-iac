@@ -1,8 +1,8 @@
 def agentLabel
 def CREDENTIAL_ID
 if (environment == "Pre-Production") {
-    agentLabel = "windows-agent-prod"
-    CREDENTIAL_ID = "windows-agent-prod-creds"
+    agentLabel = "windows-agent-stg"
+    CREDENTIAL_ID = "windows-agent-stg-creds"
 } else {
     agentLabel = "windows-agent-stg"
     CREDENTIAL_ID = "windows-agent-stg-creds"
@@ -10,9 +10,9 @@ if (environment == "Pre-Production") {
 
 def getBranchFromEnv(Env) {
   if (Env == 'Pre-Production') {
-    return 'preprod'
-  } else {
     return 'uat'
+  } else {
+    return 'stage'
  }
 }
 
