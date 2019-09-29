@@ -9,7 +9,7 @@ param(
 
 $tagged_release = "${releasename}-${tag}.bprelease"
 
-git pull
+git pull origin $git_branch
 git add $tagged_release
 git commit -m "Commit by Jenkins for Build $tag"
 git push -u origin HEAD:$git_branch
